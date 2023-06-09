@@ -9,10 +9,12 @@ import {
 import Header from '../components/Header';
 import { useEffect, useState } from 'react';
 
-export default function Onboarding() {
+export default function Onboarding({ route }) {
   const [firstName, setFirstName] = useState('');
   const [email, setEmail] = useState('');
   const [isButtonDisabled, setIsButtonDisabled] = useState(true);
+
+  const { handleOnboardingNextPress } = route.params;
 
   useEffect(() => {
     const nameValid = firstName?.length > 3;
@@ -51,6 +53,7 @@ export default function Onboarding() {
         <TouchableOpacity
           style={[styles.nextButton, isButtonDisabled && styles.disabledButton]}
           disabled={isButtonDisabled}
+          onPress={handleOnboardingNextPress}
         >
           <Text style={styles.nextButtonText}>Next</Text>
         </TouchableOpacity>

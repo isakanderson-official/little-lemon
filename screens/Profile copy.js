@@ -10,10 +10,12 @@ import Header from '../components/Header';
 import { useState } from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
-export default function ProfileScreen() {
+export default function WelcomeScreen() {
   return (
-    <SafeAreaView style={styles.container}>
-      <Text>Profile</Text>
+    <SafeAreaView
+      style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}
+    >
+      <Text>Welcome</Text>
     </SafeAreaView>
   );
 }

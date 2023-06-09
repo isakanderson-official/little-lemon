@@ -1,26 +1,9 @@
-import {
-  StyleSheet,
-  Text,
-  TextInput,
-  Touchable,
-  TouchableOpacity,
-  View,
-} from 'react-native';
-import Header from '../components/Header';
-import { useState } from 'react';
+import { StyleSheet, Text, View } from 'react-native';
 
-export default function Onboarding() {
+export default function SplashScreen() {
   return (
-    <View style={styles.container}>
-      <Text>Profile</Text>
+    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+      <Text>Splash</Text>
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    flexDirection: 'column',
-    justifyContent: 'space-between',
-  },
-});
