@@ -1,20 +1,14 @@
-import {
-  StyleSheet,
-  Text,
-  TextInput,
-  Touchable,
-  TouchableOpacity,
-  View,
-} from 'react-native';
+import { Pressable, StyleSheet, Text, TextInput, View } from 'react-native';
 import Header from '../components/Header';
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
+import AppContext from '../context/AppContext';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
-export default function Onboarding({ route }) {
+export default function Onboarding() {
   const [firstName, setFirstName] = useState('');
   const [email, setEmail] = useState('');
   const [isButtonDisabled, setIsButtonDisabled] = useState(true);
-
-  const { handleOnboardingNextPress } = route.params;
+  const { setOnboardingCompleted } = useContext(AppContext);
 
   useEffect(() => {
     const nameValid = firstName?.length > 3;
@@ -23,6 +17,18 @@ export default function Onboarding({ route }) {
     if (nameValid && emailValid) setIsButtonDisabled(false);
     else setIsButtonDisabled(true);
   }, [email, firstName]);
+
+  const user = { firstName, email };
+
+  const onNextPress = async () => {
+    try {
+      await AsyncStorage.setItem('user', JSON.stringify(user));
+      setOnboardingCompleted(true);
+    } catch (error) {
+      console.error('ERROR', error);
+    }
+  };
+
   return (
     <View style={styles.container}>
       <Header />
@@ -50,13 +56,13 @@ export default function Onboarding({ route }) {
         </View>
       </View>
       <View style={styles.footer}>
-        <TouchableOpacity
+        <Pressable
           style={[styles.nextButton, isButtonDisabled && styles.disabledButton]}
           disabled={isButtonDisabled}
-          onPress={handleOnboardingNextPress}
+          onPress={onNextPress}
         >
           <Text style={styles.nextButtonText}>Next</Text>
-        </TouchableOpacity>
+        </Pressable>
       </View>
     </View>
   );
