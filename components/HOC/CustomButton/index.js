@@ -10,7 +10,6 @@ const CustomButton = ({ text, style, textStyle, ...args }) => {
         borderRadius: 8,
         justifyContent: 'center',
         alignItems: 'center',
-        marginTop: 10,
         backgroundColor: colors.GREEN,
         borderColor: colors.GREEN,
         borderWidth: 2,

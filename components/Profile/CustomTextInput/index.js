@@ -7,6 +7,7 @@ const CustomTextInput = ({
   onChangeText,
   placeholder,
   secureTextEntry,
+  ...args
 }) => {
   return (
     <View>
@@ -31,6 +32,7 @@ const CustomTextInput = ({
         onChangeText={onChangeText}
         placeholder={placeholder}
         secureTextEntry={secureTextEntry}
+        {...args}
       />
     </View>
   );

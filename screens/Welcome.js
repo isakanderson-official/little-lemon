@@ -1,33 +1,24 @@
-import {
-  StyleSheet,
-  Text,
-  TextInput,
-  Touchable,
-  TouchableOpacity,
-  View,
-} from 'react-native';
-import Header from '../components/Header';
-import { useState } from 'react';
+import { StyleSheet, Text } from 'react-native';
+import { useContext } from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import CustomButton from '../components/HOC/CustomButton';
 
-export default function WelcomeScreen() {
-  const clearAsyncStorage = async () => {
-    try {
-      await AsyncStorage.clear();
-      console.log('AsyncStorage cleared successfully.');
-    } catch (error) {
-      console.log('Error clearing AsyncStorage:', error);
-    }
-  };
+export default function WelcomeScreen({ navigation }) {
+  const {
+    globalState: { user },
+  } = useContext(AppContext);
+
+  // useEffect(())
+
   return (
     <SafeAreaView
       style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}
     >
-      <Text>Welcome</Text>
-      <TouchableOpacity onPress={clearAsyncStorage}>
-        <Text>Clear Memory</Text>
-      </TouchableOpacity>
+      <Text>Welcome, {user?.firstName && user.firstName}</Text>
+      <CustomButton
+        onPress={() => navigation.navigate('Profile')}
+        text={'Navigate to Profile'}
+      />
     </SafeAreaView>
   );
 }

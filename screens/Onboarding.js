@@ -1,5 +1,4 @@
 import { Pressable, StyleSheet, Text, TextInput, View } from 'react-native';
-import Header from '../components/Header';
 import { useContext, useEffect, useState } from 'react';
 import AppContext from '../context/AppContext';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -31,7 +30,6 @@ export default function Onboarding() {
 
   return (
     <View style={styles.container}>
-      <Header />
       <View style={styles.middleContainer}>
         <Text style={styles.title}>Let us get to know you</Text>
 
