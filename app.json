@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "MyProject",
+    "name": "Isak Anderson Capstone Project",
     "slug": "MyProject",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -11,9 +11,7 @@
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true
     },

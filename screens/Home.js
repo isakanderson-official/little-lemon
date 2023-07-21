@@ -5,10 +5,9 @@ import {
   ScrollView,
   StyleSheet,
   Text,
-  TextInput,
   View,
 } from "react-native";
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { colors } from "../constants/color";
 import { filterMenuItems, selectAllMenu } from "../database";
 import debounce from "../utils/debounce";

@@ -1,7 +1,6 @@
 import React from "react";
 import { StyleSheet, TextInput, View, Image, Text } from "react-native";
 import { colors } from "../../constants/color";
-import { useFonts } from "expo-font";
 
 const HeroSection = ({ setSearchInput, disableSearch }) => {
   return (

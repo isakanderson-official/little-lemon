@@ -1,32 +1,22 @@
-import { StyleSheet, Text } from 'react-native';
-import { useContext } from 'react';
-import { SafeAreaView } from 'react-native-safe-area-context';
-import CustomButton from '../components/HOC/CustomButton';
+import { StyleSheet, Text } from "react-native";
+import { useContext } from "react";
+import { SafeAreaView } from "react-native-safe-area-context";
+import CustomButton from "../components/HOC/CustomButton";
 
 export default function WelcomeScreen({ navigation }) {
   const {
     globalState: { user },
   } = useContext(AppContext);
 
-  // useEffect(())
-
   return (
     <SafeAreaView
-      style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}
+      style={{ flex: 1, justifyContent: "center", alignItems: "center" }}
     >
       <Text>Welcome, {user?.firstName && user.firstName}</Text>
       <CustomButton
-        onPress={() => navigation.navigate('Profile')}
-        text={'Navigate to Profile'}
+        onPress={() => navigation.navigate("Profile")}
+        text={"Navigate to Profile"}
       />
     </SafeAreaView>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    flexDirection: 'column',
-    justifyContent: 'space-between',
-  },
-});

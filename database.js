@@ -76,7 +76,6 @@ const resetDatabase = () => {
 };
 
 const checkMenuTableAndPopulateData = async () => {
-  // await resetDatabase();
   const dbMenu = await selectAllMenu();
   if (dbMenu?.length) return dbMenu;
   const menuItemsFromApi = await getDataFromApiAsync();
