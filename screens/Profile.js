@@ -82,7 +82,7 @@ export default function ProfileScreen({ navigation }) {
         phoneNumber,
         notificationPref,
       });
-      navigateToWelcomeScreen();
+      navigateToHomeScreen();
     } catch (error) {
       alert('Error saving profile changes');
       console.error(error);
@@ -98,7 +98,7 @@ export default function ProfileScreen({ navigation }) {
     setNotificationPref((prev) => ({ ...prev, [key]: value }));
   };
 
-  const navigateToWelcomeScreen = () => navigation.navigate('Welcome');
+  const navigateToHomeScreen = () => navigation.navigate('Home');
 
   useEffect(() => {
     loadProfileData();

@@ -1,13 +1,22 @@
-import { NavigationContainer } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import React, { useContext, useEffect, useState } from 'react';
-import AppContext from '../context/AppContext';
-import OnboardingScreen from '../screens/Onboarding';
-import WelcomeScreen from '../screens/Welcome';
-import SplashScreen from '../screens/SplashScreen';
-import ProfileScreen from '../screens/Profile';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import Header from '../components/Header/Header';
+import { NavigationContainer } from "@react-navigation/native";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import React, { useContext, useEffect, useState } from "react";
+import AppContext from "../context/AppContext";
+import OnboardingScreen from "../screens/Onboarding";
+import HomeScreen from "../screens/Home";
+import SplashScreen from "../screens/Splash";
+import ProfileScreen from "../screens/Profile";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import Header from "../components/Header/Header";
+import Avatar from "../components/Avatar/Avatar";
+import { Pressable } from "react-native";
+import {
+  checkMenuTableAndPopulateData,
+  getMenuItems,
+  insertDataFromApiAsync,
+  resetDatabase,
+  selectAllMenu,
+} from "../database";
 
 const Navigation = () => {
   const Stack = createNativeStackNavigator();
@@ -16,23 +25,31 @@ const Navigation = () => {
   const { isOnboardingCompleted } = globalState;
   const [isLoading, setIsLoading] = useState(true);
 
-  const checkProfile = async () => {
+  const loadApp = async () => {
+    console.log("In loading app");
     try {
-      const user = await AsyncStorage.getItem('user');
+      const user = await AsyncStorage.getItem("user");
       if (user) {
         setOnboardingCompleted(true);
       }
       updateUser(JSON.parse(user));
+      const existingMenuItems = await selectAllMenu();
+      if (user && existingMenuItems.length) {
+        setIsLoading(false);
+        return;
+      }
+      console.log("Checking For items");
+      await checkMenuTableAndPopulateData();
       setIsLoading(false);
     } catch (error) {
-      console.error(error);
+      console.error("There was an error", error);
       setIsLoading(false);
     }
   };
 
   // When app opens run this code
   useEffect(() => {
-    checkProfile();
+    loadApp();
   }, []);
 
   if (isLoading) {
@@ -43,17 +60,18 @@ const Navigation = () => {
     <NavigationContainer>
       <Stack.Navigator
         screenOptions={{
-          headerTitle: (props) => <Header {...props} />,
+          header: (props) => <Header {...props} />,
+          headerShown: true,
         }}
       >
-        {!isOnboardingCompleted ? (
+        {isOnboardingCompleted ? (
           <>
-            <Stack.Screen name='Onboarding' component={OnboardingScreen} />
+            <Stack.Screen name="Home" component={HomeScreen} />
+            <Stack.Screen name="Profile" component={ProfileScreen} />
           </>
         ) : (
           <>
-            <Stack.Screen name='Profile' component={ProfileScreen} />
-            <Stack.Screen name='Welcome' component={WelcomeScreen} />
+            <Stack.Screen name="Onboarding" component={OnboardingScreen} />
           </>
         )}
       </Stack.Navigator>

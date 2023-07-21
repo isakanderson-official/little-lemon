@@ -5,7 +5,7 @@ import { colors } from '../../constants/color';
 import * as ImagePicker from 'expo-image-picker';
 import AppContext from '../../context/AppContext';
 
-const Avatar = ({ height, width, onlyAvatar, ...props }) => {
+const Avatar = ({ onPress, onlyAvatar, ...props }) => {
   const {
     globalState: { user },
     updateUser,
@@ -33,7 +33,7 @@ const Avatar = ({ height, width, onlyAvatar, ...props }) => {
 
   if (onlyAvatar) {
     return (
-      <Pressable onPress={props.onPress}>
+      <Pressable onPress={onPress}>
         {profileImageUri && (
           <Image
             source={{ uri: profileImageUri }}
@@ -42,8 +42,8 @@ const Avatar = ({ height, width, onlyAvatar, ...props }) => {
           />
         )}
         {!profileImageUri && (
-          <View style={styles.textContainer} {...props}>
-            <Text style={styles.text}>
+          <View style={styles.headerAvatar}>
+            <Text style={styles.headerAvatarText}>
               {firstName?.slice(0, 1)}
               {lastName?.slice(0, 1)}
             </Text>
@@ -100,7 +100,19 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
+  headerAvatar: {
+    backgroundColor: colors.GREEN,
+    height: 30,
+    width: 30,
+    fontSize: 10,
+    borderRadius: 100,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  headerAvatarText: {
+    color: colors.GRAY,
+    fontSize: 10,
+  },
   text: { color: colors.GRAY, fontSize: 30 },
 });
-
 export default Avatar;
