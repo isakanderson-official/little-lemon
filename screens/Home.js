@@ -12,6 +12,7 @@ import { useContext, useEffect, useState } from "react";
 import { colors } from "../constants/color";
 import { filterMenuItems, selectAllMenu } from "../database";
 import debounce from "../utils/debounce";
+import HeroSection from "../components/Hero";
 
 export default function HomeScreen({ navigation }) {
   const [menuItems, setMenuItems] = useState([]);
@@ -66,21 +67,7 @@ export default function HomeScreen({ navigation }) {
 
   return (
     <View style={styles.homeContainer}>
-      <View style={styles.heroSection}>
-        <Text style={styles.heroLL}>Little Lemon</Text>
-        <Text style={styles.heroChicago}>Chicago</Text>
-        <View style={styles.heroDescImageContainer}>
-          <Text style={styles.heroDescription}>
-            We are a family owned Mediterranean restaurant, focused on
-            traditional recipes served with a modern twist.
-          </Text>
-          <Image
-            source={require("../assets/heroImage.png")}
-            style={styles.heroImage}
-          />
-        </View>
-        <TextInput style={styles.searchBar} onChangeText={setSearchInput} />
-      </View>
+      <HeroSection setSearchInput={setSearchInput} />
       {/*  FILTER SECTION */}
       <View style={styles.filtersContainer}>
         <Text style={styles.filterTitle}>ORDER FOR DELIVERY!</Text>
@@ -151,38 +138,7 @@ const styles = StyleSheet.create({
     position: "relative",
     justifyContent: "center",
   },
-  heroSection: {
-    backgroundColor: colors.GREEN,
-    height: 300,
-    padding: 20,
-    position: "relative",
-    overflow: "hidden",
-  },
-  heroLL: { fontSize: 45, color: colors.YELLOW },
-  heroChicago: { fontSize: 30, color: colors.GRAY },
-  heroDescImageContainer: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-  },
-  heroDescription: {
-    fontSize: 15,
-    color: colors.GRAY,
-    maxWidth: 200,
-    marginTop: 10,
-  },
-  heroImage: {
-    height: 130,
-    width: 120,
-    marginTop: -30,
-    borderRadius: 20,
-  },
-  searchBar: {
-    backgroundColor: colors.GRAY,
-    padding: 10,
-    borderRadius: 10,
-    justifyContent: "flex-end",
-    marginTop: 25,
-  },
+
   filtersContainer: {
     padding: 20,
     paddingRight: -20,
@@ -211,7 +167,10 @@ const styles = StyleSheet.create({
   },
   menuDetails: { flex: 1, gap: 10 },
   itemTitle: { fontWeight: "bold" },
-  itemDescription: {},
+  itemDescription: {
+    color: colors.BLACK,
+    fontWeight: "500",
+  },
   itemPrice: { fontWeight: "500" },
   itemImageContainer: { width: 100, height: 100, backgroundColor: "black" },
   menuImage: {

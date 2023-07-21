@@ -1,6 +1,6 @@
-import React from 'react';
-import { Pressable, Text } from 'react-native';
-import { colors } from '../../../constants/color';
+import React from "react";
+import { Pressable, Text } from "react-native";
+import { colors } from "../../../constants/color";
 
 const CustomButton = ({ text, style, textStyle, ...args }) => {
   return (
@@ -8,8 +8,8 @@ const CustomButton = ({ text, style, textStyle, ...args }) => {
       style={{
         padding: 15,
         borderRadius: 8,
-        justifyContent: 'center',
-        alignItems: 'center',
+        justifyContent: "center",
+        alignItems: "center",
         backgroundColor: colors.GREEN,
         borderColor: colors.GREEN,
         borderWidth: 2,
@@ -20,8 +20,8 @@ const CustomButton = ({ text, style, textStyle, ...args }) => {
       <Text
         style={{
           color: colors.GRAY,
-          justifyContent: 'center',
-          fontWeight: 'bold',
+          justifyContent: "center",
+          fontWeight: "bold",
           ...textStyle,
         }}
       >

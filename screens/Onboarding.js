@@ -1,56 +1,58 @@
-import { Pressable, StyleSheet, Text, TextInput, View } from 'react-native';
-import { useContext, useEffect, useState } from 'react';
-import AppContext from '../context/AppContext';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import { Pressable, StyleSheet, Text, TextInput, View } from "react-native";
+import { useContext, useEffect, useState } from "react";
+import AppContext from "../context/AppContext";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { colors } from "../constants/color";
+import HeroSection from "../components/Hero";
+import { useNavigation } from "@react-navigation/native";
 
 export default function Onboarding() {
-  const [firstName, setFirstName] = useState('');
-  const [email, setEmail] = useState('');
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
   const [isButtonDisabled, setIsButtonDisabled] = useState(true);
-  const { setOnboardingCompleted } = useContext(AppContext);
+  const { setOnboardingCompleted, updateUser } = useContext(AppContext);
+
+  const nav = useNavigation();
 
   useEffect(() => {
-    const nameValid = firstName?.length > 3;
-    const emailValid = email?.length > 6 && email?.includes('@');
+    const nameValid = name?.length > 3;
+    const emailValid = email?.length > 6 && email?.includes("@");
 
     if (nameValid && emailValid) setIsButtonDisabled(false);
     else setIsButtonDisabled(true);
-  }, [email, firstName]);
+  }, [email, name]);
 
-  const user = { firstName, email };
+  const [firstName, lastName] = name.split(" ");
+
+  const user = { firstName, lastName, email };
 
   const onNextPress = async () => {
     try {
-      await AsyncStorage.setItem('user', JSON.stringify(user));
+      await AsyncStorage.setItem("user", JSON.stringify(user));
+      updateUser({ firstName, lastName, email });
       setOnboardingCompleted(true);
+      nav.replace("Profile");
     } catch (error) {
-      console.error('ERROR', error);
+      console.error("ERROR", error);
     }
   };
 
   return (
     <View style={styles.container}>
+      <HeroSection disableSearch />
       <View style={styles.middleContainer}>
-        <Text style={styles.title}>Let us get to know you</Text>
-
-        <View style={styles.inputContainer}>
-          <View style={styles.inputWrapper}>
-            <Text style={styles.inputLabel}>First Name</Text>
-            <TextInput
-              style={styles.input}
-              value={firstName}
-              onChangeText={setFirstName}
-            />
-          </View>
-          <View style={styles.inputWrapper}>
-            <Text style={styles.inputLabel}>Email</Text>
-            <TextInput
-              style={styles.input}
-              value={email}
-              onChangeText={setEmail}
-              keyboardType='email-address'
-            />
-          </View>
+        <View style={styles.inputWrapper}>
+          <Text style={styles.inputLabel}>First Name *</Text>
+          <TextInput style={styles.input} value={name} onChangeText={setName} />
+        </View>
+        <View style={styles.inputWrapper}>
+          <Text style={styles.inputLabel}>Email *</Text>
+          <TextInput
+            style={styles.input}
+            value={email}
+            onChangeText={setEmail}
+            keyboardType="email-address"
+          />
         </View>
       </View>
       <View style={styles.footer}>
@@ -69,24 +71,25 @@ export default function Onboarding() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    flexDirection: 'column',
-    justifyContent: 'space-between',
+    flexDirection: "column",
+    justifyContent: "space-between",
   },
   middleContainer: {
-    backgroundColor: '#EDEFEE',
-    alignItems: 'center',
-    paddingVertical: 50,
+    backgroundColor: "white",
+    // alignItems: "center",
+    paddingVertical: 20,
     paddingHorizontal: 30,
     flexGrow: 1,
+    width: "100%",
   },
   title: {
     fontSize: 24,
     marginBottom: 20,
-    color: 'black',
-    fontWeight: '600',
+    color: colors.BLACK,
+    fontWeight: "600",
   },
   inputContainer: {
-    width: '100%',
+    width: "100%",
     paddingVertical: 30,
   },
   inputWrapper: {
@@ -94,38 +97,39 @@ const styles = StyleSheet.create({
   },
   inputLabel: {
     fontSize: 16,
-
     marginBottom: 5,
+    fontWeight: "600",
+    color: colors.BLACK,
   },
   input: {
     height: 40,
-    borderColor: 'gray',
+    borderColor: "gray",
     borderWidth: 1,
     borderRadius: 8,
     paddingHorizontal: 10,
   },
   footer: {
-    backgroundColor: 'white',
+    backgroundColor: "white",
     padding: 10,
     paddingBottom: 50,
-    width: '100%',
-    flexDirection: 'row',
-    justifyContent: 'flex-end',
+    width: "100%",
+    flexDirection: "row",
+    justifyContent: "flex-end",
   },
   nextButton: {
-    display: 'flex',
-    backgroundColor: '#007AFF',
+    display: "flex",
+    backgroundColor: "#007AFF",
     paddingHorizontal: 20,
     paddingVertical: 10,
     borderRadius: 8,
-    alignSelf: 'flex-end',
+    alignSelf: "flex-end",
   },
   disabledButton: {
-    backgroundColor: '#D3D3D3',
+    backgroundColor: "#D3D3D3",
   },
   nextButtonText: {
-    color: '#FFFFFF',
+    color: "#FFFFFF",
     fontSize: 16,
-    fontWeight: 'bold',
+    fontWeight: "bold",
   },
 });

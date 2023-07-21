@@ -1,23 +1,20 @@
-import { View, Image, StyleSheet, Pressable } from "react-native";
-import { useNavigation } from "@react-navigation/native";
-import Avatar from "../Avatar/Avatar";
+import { View, Image, StyleSheet } from "react-native";
 import { colors } from "../../constants/color";
 
 const Header = () => {
-  const navigation = useNavigation();
   return (
-    <View style={styles.container}>
-      <View style={styles.logoContainer}>
-        <Image source={require("../../assets/Logo.png")} style={styles.image} />
-      </View>
-
-      <Avatar
-        onlyAvatar={true}
-        style={styles.avatar}
-        fontSize={10}
-        onPress={() => navigation.navigate("Profile")}
-      />
+    // <View style={styles.container}>
+    <View style={styles.logoContainer}>
+      <Image source={require("../../assets/Logo.png")} style={styles.image} />
     </View>
+
+    // {/* <Avatar
+    //   onlyAvatar={true}
+    //   style={styles.avatar}
+    //   fontSize={10}
+    //   onPress={() => navigation.navigate("Profile")}
+    // /> */}
+    // </View>
   );
 };
 
@@ -26,20 +23,17 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     position: "relative",
-    paddingVertical: 10,
-    marginTop: 30,
+    // paddingVertical: 10,
+    // marginTop: 30,
     paddingHorizontal: 20,
   },
   logoContainer: {
-    marginLeft: 40,
-    flex: 1,
     alignItems: "center",
   },
   image: {
-    height: 70,
+    height: 30,
     width: 170,
     resizeMode: "contain",
-    alignSelf: "center",
   },
   avatar: {
     backgroundColor: colors.GREEN,
